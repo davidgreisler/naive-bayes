@@ -6,6 +6,7 @@ The application will look for training/test data under a root path specified in 
 a directory structure as follows:
     
 ```<root path>/<class name>/test/``` containing test documents.
+
 ```<root path>/<class name>/train/``` containing training documents.
     
 Class names have to be in the class_names in main.py list.
