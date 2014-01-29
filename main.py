@@ -3,8 +3,22 @@
 """
     main.py
     
-    @todo describe.
+    This module contains the main application logic of the naive bayes classificator.
+    
+    The application will look for training/test data under root_path. It expects a directory
+    structure as follows:
+    
+    <root path>/<class name>/test/ containing test documents.
+    <root path>/<class name>/train/ containing training documents.
+    
+    Class names have to be in the class_names list.
+    
+    The application will then use the training documents to train the classificator and subsequently
+    classify the test documents using the trained naive bayes classificator. The resulting scores
+    are written to stdout.
+    
     @author David Greisler <s0531301@htw-berlin.de>
+    @author Paul Kitt <s0528516@htw-berlin.de>
     
 """
 
@@ -12,6 +26,7 @@ from DirectoryCrawler import DirectoryCrawler
 from TrainingClass import TrainingClass
 from NaiveBayes import NaiveBayes
 from BagOfWords import BagOfWords
+import os
 
 root_path = "/home/david/Dokumente/Ausbildung/HTW Berlin/7. Semester/Aktuelle Themen der Informatik 2/Übung 2/data/"
 crawler = DirectoryCrawler(root_path)
@@ -53,8 +68,8 @@ for document_class in classes:
         
     for document in documents:
         scores = naive_bayes.compute_scores(document, vocabulary, classes)
-        sorted_scores = sorted(scores, key = lambda c : scores[c], reverse = True)
-        score_text = ', '.join(d_class.name + " (" + str(scores[d_class]) + ")" for d_class in sorted_scores)
-        print "* '" + document.path + "': " + score_text
+        sorted_scores = sorted(scores, key = lambda c : scores[c], reverse = False)
+        score_text = ', '.join(d_class.name + " (%.2f)" % scores[d_class] for d_class in sorted_scores)
+        print "* '" + os.path.basename(document.path) + "': " + score_text
     
     print

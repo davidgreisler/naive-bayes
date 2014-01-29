@@ -109,6 +109,8 @@ class TrainingClass(object):
             if word not in conditional_probabilities:
                 conditional_probabilities[word] = 0
             
-            conditional_probabilities[word] += (class_documents_words.count_word(word) + 1) / float(class_documents_words.number_of_words + class_documents_words.number_of_distinct_words)
+            conditional_probabilities[word] += (class_documents_words.count_word(word) + 1) \
+                / float(class_documents_words.number_of_words \
+                        + class_documents_words.number_of_distinct_words)
                 
         return Class(self._name, prior_probability, conditional_probabilities)
