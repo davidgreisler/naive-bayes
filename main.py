@@ -13,7 +13,7 @@ from TrainingClass import TrainingClass
 from NaiveBayes import NaiveBayes
 from BagOfWords import BagOfWords
 
-root_path = "<PATH TO data DIRECTORY>"
+root_path = "/home/david/Dokumente/Ausbildung/HTW Berlin/7. Semester/Aktuelle Themen der Informatik 2/Übung 2/data/"
 crawler = DirectoryCrawler(root_path)
 naive_bayes = NaiveBayes()
 
@@ -53,7 +53,8 @@ for document_class in classes:
         
     for document in documents:
         scores = naive_bayes.compute_scores(document, vocabulary, classes)
-        print ("* '" + document.path + "': " 
-               "" + ', '.join(d_class.name + " (" + str(scores[d_class]) + ")" for d_class in scores))
+        sorted_scores = sorted(scores, key = lambda c : scores[c], reverse = True)
+        score_text = ', '.join(d_class.name + " (" + str(scores[d_class]) + ")" for d_class in sorted_scores)
+        print "* '" + document.path + "': " + score_text
     
     print
