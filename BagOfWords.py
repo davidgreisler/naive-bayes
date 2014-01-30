@@ -6,8 +6,11 @@
     This module implements a BagOfWords class, which maps words to occurrence count.
     
     @author David Greisler <s0531301@htw-berlin.de>
+    @author Paul Kitt <s0528516@htw-berlin.de>
 
 """
+
+import re, string
 
 class BagOfWords(object):
     """
@@ -43,8 +46,24 @@ class BagOfWords(object):
         """
         self._words = {}
         self._number_of_words = 0
-        for word in text.split():
+        regex = re.compile('[%s]' % re.escape(string.punctuation))
+        for word in [x for x in regex.sub('',text).split() if self.is_number(x)==False]:
             self.add_word(word, 1)
+    
+    def is_number(self,s):
+        try:
+            float(s)
+            return True
+        except ValueError:
+            pass
+     
+        try:
+            import unicodedata
+            unicodedata.numeric(s)
+            return True
+        except (TypeError, ValueError):
+            pass
+        return False
     
     @property
     def number_of_words(self):

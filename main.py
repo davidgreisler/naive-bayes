@@ -28,7 +28,7 @@ from NaiveBayes import NaiveBayes
 from BagOfWords import BagOfWords
 import os
 
-root_path = "/home/david/Dokumente/Ausbildung/HTW Berlin/7. Semester/Aktuelle Themen der Informatik 2/Übung 2/data/"
+root_path = "<HIER PFAD ZUM data VERZEICHNIS EINFUEGEN!>"
 crawler = DirectoryCrawler(root_path)
 naive_bayes = NaiveBayes()
 
